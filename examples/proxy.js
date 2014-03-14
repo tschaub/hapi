@@ -1,5 +1,6 @@
 // Load modules
 
+var Boom = require('boom');
 var Nipple = require('nipple');
 var Hapi = require('../lib');
 
@@ -44,7 +45,7 @@ internals.main = function () {
         });
     };
 
-    server.route({ method: '*', path: '/{p*}', handler: { proxy: { host: 'google.com', port: 80, redirects: 5 } } });
+    server.route({ method: '*', path: '/{p*}', handler: { proxy: { host: 'google.com', port: 80, redirects: 5, postResponse: postResponse } } });
     server.route({ method: 'GET', path: '/hapi/{term}', handler: { proxy: { mapUri: mapper } } });
     server.start();
 };
